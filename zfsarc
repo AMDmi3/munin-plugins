@@ -1,0 +1,92 @@
+#!/bin/sh
+#
+# Copyright (c) 2015 Dmitry Marakasov <amdmi3@amdmi3.ru>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+
+#
+# Munin plugin which reports ZFS ARC usage as FreeBSD top(1) does
+# (and actually top output is used). Reports total memory used my ARC
+# as well as specific MFU, MRU, Anon, Hearer and Other sizes.
+#
+
+if [ "$1" = "autoconf" ]; then
+	if top | grep ^ARC:; then
+		echo yes
+		exit 0
+	else
+		echo no
+		exit 0
+	fi
+fi
+
+if [ "$1" = "config" ]; then
+        echo 'graph_title ZFS ARC usage'
+        echo 'graph_args -l 0 --base 1024'
+        echo 'graph_vlabel bytes'
+        echo 'graph_category filesystem'
+        echo 'graph_info This graph shows ZFS ARC usage counters'
+        echo 'mfu.label MFU'
+        echo 'mfu.min 0'
+        echo 'mfu.draw AREA'
+        echo 'mfu.colour 00cc00'
+        echo 'mru.label MRU'
+        echo 'mru.min 0'
+        echo 'mru.draw STACK'
+        echo 'mru.colour 0066b3'
+        echo 'anon.label Anon'
+        echo 'anon.min 0'
+        echo 'anon.draw STACK'
+        echo 'anon.colour ff8000'
+        echo 'header.label Header'
+        echo 'header.min 0'
+        echo 'header.draw STACK'
+        echo 'header.colour ffcc00'
+        echo 'other.label Other'
+        echo 'other.min 0'
+        echo 'other.draw STACK'
+        echo 'other.colour 330099'
+        echo 'total.label Total'
+        echo 'total.min 0'
+        echo 'total.colour 000000'
+        exit 0
+fi
+
+top | grep ^ARC: | awk '
+function val(name, num) {
+	mult = 1;
+	if (index(num, "K")) mult = 1024;
+	else if (index(num,"M")) mult = 1024*1024;
+	else if (index(num, "G")) mult = 1024*1024*1024;
+	num = num *mult;
+	print name".value", num;
+}
+{
+	val("total", $2);
+	val("mfu", $4);
+	val("mru", $6);
+	val("anon", $8);
+	val("header", $10);
+	val("other", $12);
+}'
