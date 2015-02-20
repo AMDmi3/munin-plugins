@@ -104,13 +104,15 @@ _END
 	my $json = decode_json($data);
 	my $build = $json->{builds}->{$json->{builds}->{latest}};
 
-	print "queued.value $build->{stats}->{queued}\n";
 	if ($build->{status} !~ /^stopped/) {
+		print "queued.value $build->{stats}->{queued}\n";
 		print "built.value $build->{stats}->{built}\n";
 		print "failed.value $build->{stats}->{failed}\n";
 		print "skipped.value $build->{stats}->{skipped}\n";
 		print "ignored.value $build->{stats}->{ignored}\n";
 		my $remaining = $build->{stats}->{queued} - $build->{stats}->{built} - $build->{stats}->{failed} - $build->{stats}->{skipped} -  $build->{stats}->{ignored};
 		print "remaining.value $remaining\n";
+	} else {
+		print "queued.value 0\n";
 	}
 }
