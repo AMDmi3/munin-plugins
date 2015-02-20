@@ -26,9 +26,8 @@
 #
 
 #
-# Munin plugin which reports ZFS ARC usage as FreeBSD top(1) does
-# (and actually top output is used). Reports total memory used my ARC
-# as well as specific MFU, MRU, Anon, Hearer and Other sizes.
+# Munin plugin for ZFS ARC monitoring
+# See https://github.com/AMDmi3/munin-plugins
 #
 
 if [ "$1" = "autoconf" ]; then

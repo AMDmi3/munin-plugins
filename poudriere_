@@ -26,8 +26,8 @@
 #
 
 #
-# Munin plugin which reports poudriere port build status for
-# selected build.
+# Munin plugin for poudriere monitoring
+# See https://github.com/AMDmi3/munin-plugins
 #
 
 use strict;
