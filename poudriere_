@@ -89,9 +89,10 @@ remaining.label Remaining
 remaining.min 0
 remaining.draw STACK
 remaining.colour e3e3e3
-queued.label Queued
+queued.label Total queued
 queued.min 0
 queued.colour aaaaaa
+queued.draw LINE0
 _END
 } else {
 	open(JSON, '<', "/usr/local/poudriere/data/logs/bulk/$BUILD/.data.json") || die "Cannot open json data";

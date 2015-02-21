@@ -69,6 +69,7 @@ if [ "$1" = "config" ]; then
         echo 'total.label Total'
         echo 'total.min 0'
         echo 'total.colour 000000'
+        echo 'total.draw LINE0'
         exit 0
 fi
 
