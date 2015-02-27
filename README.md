@@ -18,3 +18,5 @@ when the build is in progress.
 * ```df```
   * Calculate accurate filesystem usage percent instead of using rounded one
   * Ignore tmpfs and poudriere's filesystems (lots of them and they are mainly ad-hoc)
+* ```df_inode```
+  * Calculate accurate filesystem usage percent instead of using rounded one
