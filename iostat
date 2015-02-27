@@ -45,7 +45,7 @@ if [ "$1" = "config" ]; then
     echo 'graph_category disk'
     echo 'graph_info This graph shows the I/O to and from block devices'
     # We don't give a XXXX about device or extended
-    drives=`/usr/sbin/iostat -I -x | 
+    drives=`/usr/sbin/iostat -I -x | egrep -v '^(cd|pass)' |
 		awk '/^device/ { next; } // { print $1; }' | 
 		awk '/extended/ { next; } // { print $1; }'`
     echo -n 'graph_order'
@@ -73,7 +73,7 @@ fi
     # We don't give a XXXX about device or extended
     # On NetBSD the kilobyte read and kilobyte write are columns 5 and 9
     # On FreeBSD the kilobyte read and kilobyte write are columns 4 and 5
-    /usr/sbin/iostat -I -x |
+    /usr/sbin/iostat -I -x | egrep -v '^(cd|pass)' |
 		awk '/^device/ { next; } //'  | 
 		awk '/extended/ { next; } //' |
 		awk ' {
