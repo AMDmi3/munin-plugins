@@ -28,3 +28,5 @@ hosts blocked by bruteblock
   * Show traffic in bytes, not bits
   * Show traffic in base 1024, not 1000
   * Instead of showing in/out as a -/+ value, show a classic mrtg-like single graph
+* ```nginx_*```
+  * Change line widths to 1
