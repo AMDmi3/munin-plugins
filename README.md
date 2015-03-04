@@ -22,3 +22,7 @@ when the build is in progress.
   * Calculate accurate filesystem usage percent instead of using rounded one
 * ```iostat```
   * Ignore cd and pass devices
+* ```if_```
+  * Show traffic in bytes, not bits
+  * Show traffic in base 1024, not 1000
+  * Instead of showing in/out as a -/+ value, show a classic mrtg-like single graph
