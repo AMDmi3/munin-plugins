@@ -12,6 +12,8 @@ MFU, MRU, Anon, Header and Other sizes.
 selected build. Shows number of totally queued ports and breakdown
 to built/failed/skipped/ignored/remaining ports. Only reports data
 when the build is in progress.
+* ```bruteblock``` - monitors size of ipfw table which contains
+hosts blocked by bruteblock
 
 ## Modifications of standard plugins
 
