@@ -36,7 +36,7 @@ if [ "$1" = "config" ]; then
         echo 'graph_title Number of hosts blocked by bruteblock'
         echo 'graph_args -l 0 --base 1000'
         echo 'graph_vlabel hosts'
-        echo 'graph_category network'
+        echo 'graph_category security'
         echo 'blocked.label Blocked'
         echo 'blocked.min 0'
         exit 0
