@@ -9,7 +9,7 @@ if (! eval "require LWP::UserAgent;"){
 	$ret = "LWP::UserAgent not found";
 }
 
-if ($0 =~ /tunnel$/) {
+if ($0 =~ /tunnelsuccessrate$/) {
 	$mode = 'tsr';
 } elsif ($0 =~ /traffic$/) {
 	$mode = 'traffic';
